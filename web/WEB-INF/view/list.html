@@ -106,7 +106,7 @@
                 <th>描述</th>
             </tr>
             <tr th:each="item : ${deptList}">
-                <td><input type="checkbox" th:value="${item.deptId}" name="val"></td>
+                <td><input type="checkbox" th:value="${item.deptId}" class="checkbox" name="val"></td>
                 <input type="hidden" th:value="${item.deptId}">
                 <td th:text="${item.deptNumber}"></td>
                 <td th:text="${item.deptName}"></td>
@@ -132,6 +132,22 @@
     }
     function page(pageNo) {
         window.location.href="dept?method=findAlldept&pageNo=" + pageNo;
+    }
+    var elementById = document.getElementById("update");
+    var elementsByClassName = document.getElementsByClassName("checkbox");
+    elementById.onclick = function (e) {
+        console.log();
+        var ind = 0;
+        for (let i = 0; i < elementsByClassName.length; i++) {
+            var value = elementsByClassName[i].checked;
+            if (value) {
+                ind++;
+            }
+        }
+        if (ind > 1){
+            alert("请选择一个编辑");
+            return false;
+        }
     }
 </script>
 </body>
