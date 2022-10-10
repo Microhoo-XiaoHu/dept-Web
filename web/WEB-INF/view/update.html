@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑部门页面</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            box-sizing: border-box;
+        }
+        input,select{
+            outline: none;
+        }
+        img{
+            vertical-align: bottom;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+        .clearfix:after{
+            display: block;
+            content: '';
+            clear: both;
+        }
+        .clearfix{
+            zoom: 1;
+        }
+
+        /* 取消插值闪动 */
+        [v-cloak] {
+            display: none;
+        }
+        #tab{
+            margin: 10px 0px 0px 50px;
+        }
+        .inp{
+            margin-left: 10px;
+            width: 50px;
+            height: 25px;
+        }
+        .red{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>&nbsp;编辑部门</h1>
+    <form th:action="@{dept(method='updateDept')}" method="post">
+        <table id="tab">
+            <tr>
+                <td>ID</td>
+                <td><input type="text" th:value="${dept.deptId}" name="deptId" readonly="readonly"></td>
+                <td class="red">&nbsp;&nbsp;&nbsp;部门ID不可修改</td>
+            </tr>
+            <tr>
+                <td>编号</td>
+                <td><input type="text" th:value="${dept.deptNumber}" name="deptNumber" readonly="readonly"></td>
+                <td class="red">&nbsp;&nbsp;&nbsp;部门编号不可修改</td>
+            </tr>
+            <tr>
+                <td>名称</td>
+                <td><input type="text" th:value="${dept.deptName}" name="deptName"></td>
+            </tr>
+            <tr>
+                <td>所属省份</td>
+                <td><input type="text" th:value="${dept.province}" name="province"></td>
+            </tr>
+            <tr>
+                <td>部门人数</td>
+                <td><input type="text" th:value="${dept.peopleCounting}" name="peopleCounting"></td>
+            </tr>
+            <tr>
+                <td>描述</td>
+                <td><input type="text" th:value="${dept.described}" name="described"></td>
+            </tr>
+        </table>
+        <input class="inp" type="submit" value="保存">
+        <input class="inp" type="reset" value="取消">
+    </form>
+</div>
+</body>
+</html>

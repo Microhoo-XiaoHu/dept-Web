@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            box-sizing: border-box;
+        }
+        input,select{
+            outline: none;
+        }
+        img{
+            vertical-align: bottom;
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+            margin-left: 20px;
+            border: 1px solid #000;
+            text-align: center;
+            display: block;
+            width: 80px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            background: #e5e5e5;
+        }
+        table{
+            width: 100%;
+            border: 1px solid #000;
+        }
+        tr,td{
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border: 1px solid #000;
+        }
+        #del{
+            width: 80px;
+            height: 30px;
+            font-size: 16px;
+            margin: 18px 0px 20px 21px;
+            cursor: pointer;
+        }
+        #update{
+            width: 80px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            position: absolute;
+            left: 119px;
+            top: 63px;
+        }
+        tr:nth-child(odd){
+            background: #ddd;
+        }
+        .clearfix:after{
+            display: block;
+            content: '';
+            clear: both;
+        }
+        .clearfix{
+            zoom: 1;
+        }
+        .create{
+            float: left;
+        }
+        .update{
+            float: left;
+        }
+        .delete{
+            position: absolute;
+            left: 200px;
+            top: 45px;
+        }
+        .inp{
+            width: 80px;
+            height: 25px;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div style="position: relative">
+    <h1>&nbsp;部门列表</h1>
+    <br>
+    <div class="clearfix">
+        <a class="create" th:href="@{dept(method='addDeptJump')}">创建</a>
+    </div>
+    <br>
+    <form th:action="@{dept(method='DeptJump')}" method="post">
+        <input class="delete" id="del" type="submit" name="jump" value="删除">
+        <input class="delete" id="update" type="submit" name="jump" value="编辑">
+        <table cellspacing="0px">
+            <tr>
+                <th></th>
+                <th>编号</th>
+                <th>名称</th>
+                <th>所属省份</th>
+                <th>部门人数</th>
+                <th>描述</th>
+            </tr>
+            <tr th:each="item : ${deptList}">
+                <td><input type="checkbox" th:value="${item.deptId}" name="val"></td>
+                <input type="hidden" th:value="${item.deptId}">
+                <td th:text="${item.deptNumber}"></td>
+                <td th:text="${item.deptName}"></td>
+                <td th:text="${item.province}"></td>
+                <td th:text="${item.peopleCounting}"></td>
+                <td th:text="${item.described}"></td>
+            </tr>
+        </table>
+        <div style="text-align: center;padding-top: 10px">
+            <input class="inp" type="button" value="首页"  th:onclick="page(1)" th:disabled="${session.pageNo==1}">
+            <input class="inp" type="button" value="上一页" th:onclick="|page(${session.pageNo - 1})|" th:disabled="${session.pageNo==1}">
+            <input class="inp" type="button" value="下一页" th:onclick="|page(${session.pageNo + 1})|" th:disabled="${session.pageNo==session.pageCount}">
+            <input class="inp" type="button" value="尾页" th:onclick="|page(${session.pageCount})|" th:disabled="${session.pageNo==session.pageCount}">
+        </div>
+    </form>
+</div>
+
+<script>
+    function f(ids) {
+        if(ids == null){
+            alert("您没有选择需要操作的选项!!!");
+        }
+    }
+    function page(pageNo) {
+        window.location.href="dept?method=findAlldept&pageNo=" + pageNo;
+    }
+</script>
+</body>
+</html>
