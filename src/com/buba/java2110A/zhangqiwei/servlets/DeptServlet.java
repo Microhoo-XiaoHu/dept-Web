@@ -59,33 +59,31 @@ public class DeptServlet extends ViewBaseServlet {
     }
 
     private void DeptJump(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String[] jumps = req.getParameterValues("jump");
-        for (String jump : jumps) {
-            if(jump.equals("删除")){
-                String[] ids = req.getParameterValues("val");
-                if (ids != null) {
-                    for (String id : ids) {
-                        System.out.println("删除是选中的id: " + id);
-                        serviceDao.deleteDept(Integer.valueOf(id));
-                    }
-                    this.findAlldept(req,resp);
-                }else {
-                    this.findAlldept(req,resp);
+        String jump = req.getParameter("jump");
+        if(jump.equals("删除")){
+            String[] ids = req.getParameterValues("val");
+            if (ids != null) {
+                for (String id : ids) {
+                    System.out.println("删除是选中的id: " + id);
+                    serviceDao.deleteDept(Integer.valueOf(id));
                 }
+                this.findAlldept(req,resp);
+            }else {
+                this.findAlldept(req,resp);
             }
+        }
 
-            if(jump.equals("编辑")){
-                String[] ids = req.getParameterValues("val");
-                if (ids != null) {
-                    for (String id : ids) {
-                        Department dept = serviceDao.findDeptById(Integer.valueOf(id));
-                        req.setAttribute("dept",dept);
-                        System.out.println(id);
-                    }
-                    super.processTemplate("update",req,resp);
-                }else {
-                    this.findAlldept(req,resp);
+        if(jump.equals("编辑")){
+            String[] ids = req.getParameterValues("val");
+            if (ids != null) {
+                for (String id : ids) {
+                    Department dept = serviceDao.findDeptById(Integer.valueOf(id));
+                    req.setAttribute("dept",dept);
+                    System.out.println(id);
                 }
+                super.processTemplate("update",req,resp);
+            }else {
+                this.findAlldept(req,resp);
             }
         }
     }
