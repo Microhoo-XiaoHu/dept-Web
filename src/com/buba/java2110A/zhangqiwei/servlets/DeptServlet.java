@@ -65,6 +65,7 @@ public class DeptServlet extends ViewBaseServlet {
                 String[] ids = req.getParameterValues("val");
                 if (ids != null) {
                     for (String id : ids) {
+                        System.out.println("删除是选中的id: " + id);
                         serviceDao.deleteDept(Integer.valueOf(id));
                     }
                     this.findAlldept(req,resp);
@@ -80,8 +81,8 @@ public class DeptServlet extends ViewBaseServlet {
                         Department dept = serviceDao.findDeptById(Integer.valueOf(id));
                         req.setAttribute("dept",dept);
                         System.out.println(id);
-                        super.processTemplate("update",req,resp);
                     }
+                    super.processTemplate("update",req,resp);
                 }else {
                     this.findAlldept(req,resp);
                 }
