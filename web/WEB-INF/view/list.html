@@ -125,21 +125,49 @@
 </div>
 
 <script>
-    function f(ids) {
-        if(ids == null){
-            alert("您没有选择需要操作的选项!!!");
+    // 获取修改按钮
+    var update = document.getElementById("update");
+    // 获取删除按钮
+    var del = document.getElementById("del");
+    // 获取多选框
+    var checkbox = document.getElementsByClassName("checkbox");
+
+    // 删除点击事件
+    del.onclick = function(e){
+        // 定义一个临时变量
+        var ind = 0;
+        // 循环多选按钮,查看它是否被选中
+        for (let i = 0; i < checkbox.length; i++) {
+            var checked = checkbox[i].checked;
+            if(checked){
+                ind ++;
+            }
+        }
+        if(ind > 1){
+            if(confirm("您确认删除选中的选项嘛?")){
+
+            }else{
+                for (let i = 0; i < checkbox.length; i++) {
+                    checkbox[i].checked = false;
+                }
+                return false;
+            }
+        }
+        if(ind == 0){
+            alert("您没有选择需要操作的选项!!");
         }
     }
+
+    // 分页函数
     function page(pageNo) {
         window.location.href="dept?method=findAlldept&pageNo=" + pageNo;
     }
-    var elementById = document.getElementById("update");
-    var elementsByClassName = document.getElementsByClassName("checkbox");
-    elementById.onclick = function (e) {
-        console.log();
+
+    // 修改点击事件
+    update.onclick = function (e) {
         var ind = 0;
-        for (let i = 0; i < elementsByClassName.length; i++) {
-            var value = elementsByClassName[i].checked;
+        for (let i = 0; i < checkbox.length; i++) {
+            var value = checkbox[i].checked;
             if (value) {
                 ind++;
             }
@@ -147,6 +175,9 @@
         if (ind > 1){
             alert("请选择一个编辑");
             return false;
+        }
+        if(ind == 0){
+            alert("您没有选择需要操作的选项!!");
         }
     }
 </script>
